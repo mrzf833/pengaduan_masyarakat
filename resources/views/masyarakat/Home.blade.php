@@ -1,7 +1,7 @@
 @extends('masyarakat.layouts.layout')
 @section('css')
     <style>
-        *{
+        .text-white{
             color: white
         }
         .btn-green{
@@ -20,7 +20,7 @@
             <div class="row mt-5">
                 <div class="col-md-6">
                     <div class="m-auto d-flex flex-column " style="width:100%;max-width:400px">
-                        <p class="text-center">
+                        <p class="text-center text-white">
                             Laporan dari masyarakat itu penting 
                             maka itu kami membuat sebuah website
                             pengaduan masyarakat biar lebih mudah
@@ -36,15 +36,15 @@
                     <form action="{{ route('masyarakat.home.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <h2 class="text-center">Tuliskan Aduan</h2>
+                            <h2 class="text-center text-white">Tuliskan Aduan</h2>
                             <textarea class="form-control" id="" name="aduan" rows="9" placeholder="Silahkan Diisi"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="foto">Foto</label>
-                            <input type="file" class="form-control-file" id="foto" name="foto">
+                            <label for="foto" class="text-white">Foto</label>
+                            <input type="file" class="form-control-file text-white" id="foto" name="foto">
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-green form-control">Adukan</button>
+                            <button type="submit" class="btn btn-green form-control text-white">Adukan</button>
                         </div>
                     </form>
                 </div>

@@ -22,7 +22,6 @@ class HomeController extends Controller
             'aduan' => 'required|min:30',
             'foto' => 'nullable|image|mimes:png,jpg,jpeg,jfif'
         ]);
-
         DB::beginTransaction();
         try{
             $pengaduan = auth()->user()->masyarakat->pengaduan()->create([
@@ -39,13 +38,13 @@ class HomeController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('masyarakat.home');
+            return redirect()->route('masyarakat.home')->with('success', 'aduan berhasil di laporkan');
         }catch(Exception $e){
             if(!empty($save_item_foto)){
                 Storage::delete('public/pengaduan/'.$nama_foto . '.' . $extension);
             }
             DB::rollBack();
-            return abort(403,$e->getMessage());
+            return redirect()->route('masyarakat.home')->with('failed', $e->getMessage());
         }
     }
 }

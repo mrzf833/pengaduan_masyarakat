@@ -25,11 +25,51 @@
         .nav-item:hover hr{
             transform: scale(0.6)
         }
+
+        .alert-custom{
+            z-index: 10000;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+        }
     </style>
     @yield('css')
 </head>
 <body class="vh-100" style="background-color:#AFAFAF">
     @include('masyarakat.layouts.navbar')
+    @if (Session::has('success') === true)
+    <div class="alert-custom alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success! </strong> {{ Session::get('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @elseif(Session::has('failed') === true)
+    <div class="alert-custom alert alert-Danger alert-dismissible fade show" role="alert">
+        <strong>Failed! </strong> {{ Session::get('failed') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @elseif(count($errors) > 0)
+    <div class="alert-custom alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Danger! </strong> 
+        <br><br>
+        @forelse ($errors->messages() as $index => $values)
+            <strong>{{ $index }}</strong>
+            <ul>
+                @foreach ($values as $value)
+                    <li>{{ $value }}</li>
+                @endforeach
+            </ul>
+        @empty
+            
+        @endforelse
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div id="content-wrapper" class="d-flex flex-column">
             @yield('content')
     </div>
