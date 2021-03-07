@@ -5,6 +5,7 @@
 
 - `composer install`
 - `cp .env.example .env`
+- `BUKAK .env LALU SETTING DATABASENYA`
 - `composer key:generate`
 - `composer dump-auto`
 - `php artisan migrate:fresh --seed`
