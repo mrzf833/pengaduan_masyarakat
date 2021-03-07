@@ -57,10 +57,10 @@ class ProfileController extends Controller
                 auth()->logout();
             }
             DB::commit();
-            return redirect()->route('masyarakat.profile.index');
+            return redirect()->route('masyarakat.profile.index')->with('success','profile berhasil di perbarui');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('masyarakat.profile.index')->with('faield',$e->getMessage());
         }
     }
 }

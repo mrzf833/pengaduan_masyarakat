@@ -12,10 +12,51 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="{{ asset('asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        .alert-custom{
+            z-index: 10000;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+        }
+    </style>
     @yield('css')
 </head>
 <body id="page-top">
     <div id="wrapper">
+        @if (Session::has('success') === true)
+            <div class="alert-custom alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success! </strong> {{ Session::get('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif(Session::has('failed') === true)
+            <div class="alert-custom alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Failed! </strong> {{ Session::get('failed') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif(count($errors) > 0)
+            <div class="alert-custom alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Failed! </strong> 
+                <br><br>
+                @forelse ($errors->messages() as $index => $values)
+                    <strong>{{ $index }}</strong>
+                    <ul>
+                        @foreach ($values as $value)
+                            <li>{{ $value }}</li>
+                        @endforeach
+                    </ul>
+                @empty
+                    
+                @endforelse
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
     @include('layouts.sidebar')
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

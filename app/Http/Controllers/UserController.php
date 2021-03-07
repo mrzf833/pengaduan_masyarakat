@@ -51,10 +51,10 @@ class UserController extends Controller
                 'telp' => $request->telp
             ]);
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success','user masyarakat berhasil di tambahkan');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('user.index')->with('failed',$e->getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $role = Role::findOrFail($request->role);
         if($role->role === 'masyarakat'){
-            return abort(403,'tidak boleh create data masyarakat');
+            return redirect()->route('user.index')->with('failed', 'tidak boleh create data masyarakat');
         }
         $this->validate($request,[
             'role' => 'required|exists:roles,id',
@@ -94,10 +94,10 @@ class UserController extends Controller
                 'telp' => $request->telp
             ]);
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'user petugas berhasil di tambahkan');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('user.index')->with('failed', $e->getMessage());
         }
     }
 
@@ -138,10 +138,10 @@ class UserController extends Controller
                 'telp' => $request->telp
             ]);
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success','user masyarakat berhasil di perbarui');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('user.index')->with('failed',$e->getMessage());
         }
     }
 
@@ -160,7 +160,7 @@ class UserController extends Controller
         $role = Role::findOrFail($request->role);
         $petugas = Petugas::findOrFail($id);
         if($role->role === 'masyarakat'){
-            return abort(403,'tidak boleh edit ke data masyarakat');
+            return redirect()->route('user.index')->with('failed', 'tidak boleh edit ke data masyarakat');
         }
         $this->validate($request,[
             'role' => 'required|exists:roles,id',
@@ -188,10 +188,10 @@ class UserController extends Controller
                 'telp' => $request->telp
             ]);
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'user petugas berhasil di perbarui');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(403,$e->getMessage());
+            return redirect()->route('user.index')->with('failed',$e->getMessage());
         }
     }
 
@@ -202,10 +202,10 @@ class UserController extends Controller
         try{
             $masyarakat->user->delete();
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'user masyarakat berhasil di hapus');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('user.index')->with('failed', $e->getMessage());
         }
     }
 
@@ -216,10 +216,10 @@ class UserController extends Controller
         try{
             $petugas->user->delete();
             DB::commit();
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'user petugas berhasil di hapus');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('user.index')->with('failed', $e->getMessage());
         }
     }
 }

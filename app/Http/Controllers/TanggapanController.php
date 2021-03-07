@@ -39,10 +39,10 @@ class TanggapanController extends Controller
                 'status' => 'selesai'
             ]);
             DB::commit();
-            return redirect()->route('adminOrPetugas.tanggapan.index');
+            return redirect()->route('adminOrPetugas.tanggapan.index')->with('success','pengaduan berhasil ditanggapi');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('adminOrPetugas.tanggapan.index')->with('failed',$e->getMessage());
         }
     }
 
@@ -59,10 +59,10 @@ class TanggapanController extends Controller
                 'status' => '0'
             ]);
             DB::commit();
-            return redirect()->route('adminOrPetugas.tanggapan.index');
+            return redirect()->route('adminOrPetugas.tanggapan.index')->with('success','pengaduan berhasil di tolak');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('adminOrPetugas.tanggapan.index')->with('failed',$e->getMessage());
         }
     }
 }

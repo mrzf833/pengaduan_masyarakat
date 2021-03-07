@@ -45,7 +45,7 @@
         </button>
     </div>
     @elseif(Session::has('failed') === true)
-    <div class="alert-custom alert alert-Danger alert-dismissible fade show" role="alert">
+    <div class="alert-custom alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Failed! </strong> {{ Session::get('failed') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -53,7 +53,7 @@
     </div>
     @elseif(count($errors) > 0)
     <div class="alert-custom alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Danger! </strong> 
+        <strong>Failed! </strong> 
         <br><br>
         @forelse ($errors->messages() as $index => $values)
             <strong>{{ $index }}</strong>

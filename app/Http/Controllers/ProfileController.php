@@ -69,7 +69,7 @@ class ProfileController extends Controller
             return redirect()->route('login');
         }catch(Exception $e){
             DB::rollBack();
-            return abort(500,$e->getMessage());
+            return redirect()->route('adminOrPetugas.profile.show')->with('failed', $e->getMessage());
         }
     }
 }

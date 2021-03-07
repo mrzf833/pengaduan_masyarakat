@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Pengaduan;
+use Illuminate\Support\Facades\Session;
 
 class AdminOrPetugas
 {
@@ -17,6 +19,8 @@ class AdminOrPetugas
     {
         $role = auth()->user()->roles->role;
         if($role === 'admin'|| $role === 'petugas'){
+            $data_proses = Pengaduan::where('status','proses')->count();
+            Session::flash('data_proses',$data_proses);
             return $next($request);
         }
         return abort(403,'role hanya untuk admin');
